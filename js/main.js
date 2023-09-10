@@ -5,6 +5,31 @@ const originalImage = document.querySelector(".zoom__img");
 let originalImageWidth = originalImage.width;
 let originalImageHeight = originalImage.height;
 
+function updateMagnifiedImage(mouseX, mouseY) {
+  const magnifiedImageStyle = magnifiedImage.style;
+  let xPercent = (mouseX / originalImageWidth) * 100;
+  let yPercent = (mouseY / originalImageHeight) * 100;
+
+  if (mouseX > 0.01 * originalImageWidth) {
+    xPercent += 0.15 * xPercent;
+  }
+
+  if (mouseY >= 0.01 * originalImageHeight) {
+    yPercent += 0.15 * yPercent;
+  }
+
+  magnifiedImageStyle.backgroundPositionX = xPercent - 9 + "%";
+  magnifiedImageStyle.backgroundPositionY = yPercent - 9 + "%";
+  magnifiedImageStyle.left = mouseX - 69 + "px";
+  magnifiedImageStyle.top = mouseY - 69 + "px";
+  magnifiedImageStyle.opacity = 1;
+}
+
+function hideMagnifiedImage() {
+  const magnifiedImageStyle = magnifiedImage.style;
+  magnifiedImageStyle.opacity = 0;
+}
+
 dateSelectElement.addEventListener('change', function() {
   const selectedDate = dateSelectElement.value;
 
@@ -19,81 +44,24 @@ dateSelectElement.addEventListener('change', function() {
   });
 });
 
-// Обработчик события для мыши
-document.getElementById("zoom").addEventListener(
-  "mousemove",
-  function (e) {
-    const magnifiedImageStyle = magnifiedImage.style;
-    const mouseX = e.pageX - this.offsetLeft;
-    const mouseY = e.pageY - this.offsetTop;
-    let xPercent = (mouseX / originalImageWidth) * 100;
-    let yPercent = (mouseY / originalImageHeight) * 100;
+const zoomContainer = document.getElementById("zoom");
+zoomContainer.addEventListener("mousemove", function (e) {
+  const mouseX = e.pageX - this.offsetLeft;
+  const mouseY = e.pageY - this.offsetTop;
+  updateMagnifiedImage(mouseX, mouseY);
+}, false);
 
-    if (mouseX > 0.01 * originalImageWidth) {
-      xPercent += 0.15 * xPercent;
-    }
+zoomContainer.addEventListener("mouseout", function () {
+  hideMagnifiedImage();
+}, false);
 
-    if (mouseY >= 0.01 * originalImageHeight) {
-      yPercent += 0.15 * yPercent;
-    }
+zoomContainer.addEventListener("touchmove", function (e) {
+  const touch = e.touches[0];
+  const mouseX = touch.clientX - this.offsetLeft;
+  const mouseY = touch.clientY - this.offsetTop;
+  updateMagnifiedImage(mouseX, mouseY);
+}, false);
 
-    magnifiedImageStyle.backgroundPositionX = xPercent - 9 + "%";
-    magnifiedImageStyle.backgroundPositionY = yPercent - 9 + "%";
-    magnifiedImageStyle.left = mouseX - 69 + "px";
-    magnifiedImageStyle.top = mouseY - 69 + "px";
-
-    // Устанавливаем opacity в 1 при движении мыши
-    magnifiedImageStyle.opacity = 1;
-  },
-  false
-);
-
-document.getElementById("zoom").addEventListener(
-  "mouseout",
-  function () {
-    const magnifiedImageStyle = magnifiedImage.style;
-    magnifiedImageStyle.opacity = 0;
-  },
-  false
-);
-
-// Обработчики событий для сенсорных устройств (мобильных устройств)
-document.getElementById("zoom").addEventListener(
-  "touchmove",
-  function (e) {
-    // Обработка события при касании экрана
-    const magnifiedImageStyle = magnifiedImage.style;
-    const touch = e.touches[0];
-    const mouseX = touch.clientX - this.offsetLeft;
-    const mouseY = touch.clientY - this.offsetTop;
-    let xPercent = (mouseX / originalImageWidth) * 100;
-    let yPercent = (mouseY / originalImageHeight) * 100;
-
-    if (mouseX > 0.01 * originalImageWidth) {
-      xPercent += 0.15 * xPercent;
-    }
-
-    if (mouseY >= 0.01 * originalImageHeight) {
-      yPercent += 0.15 * yPercent;
-    }
-
-    magnifiedImageStyle.backgroundPositionX = xPercent - 9 + "%";
-    magnifiedImageStyle.backgroundPositionY = yPercent - 9 + "%";
-    magnifiedImageStyle.left = mouseX - 69 + "px";
-    magnifiedImageStyle.top = mouseY - 69 + "px";
-
-    // Устанавливаем opacity в 1 при движении по сенсорному экрану
-    magnifiedImageStyle.opacity = 1;
-  },
-  false
-);
-
-document.getElementById("zoom").addEventListener(
-  "touchend",
-  function () {
-    // Обработка события при отрыве пальца от экрана
-    const magnifiedImageStyle = magnifiedImage.style;
-    magnifiedImageStyle.opacity = 0;
-  },
-  false
-);
+zoomContainer.addEventListener("touchend", function () {
+  hideMagnifiedImage();
+}, false);
