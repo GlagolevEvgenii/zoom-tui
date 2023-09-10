@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+  <title>zoom</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <section class="section_action">
+    <div class="text__container">
+      <p class="action__title">Jetzt mitmachen und gewinnen: Das Urlaubs-Wimmelbild</p>
+      <p class="action__subtitle">Wusel Dich durch das Urlaubs-Wimmelbild und löse das Rätsel mit einem Klick auf das versteckte TUI-Logo.</p>
+      <select id="date__select">
+        <option value='0'>11.10.2023-17.10.23</option>
+        <option value='1'>18.10.2023-24.10.23</option>
+        <option value='2'>25.10.2023-01.11.23</option>
+        <option value='3'>02.11.2023-08.11.23</option>
+      </select>
+    </div>
+    <div id="zoom" class="images__holder">
+      <img src="images\img_strand.jpg" data-id="0" class="zoom__img" style="display: block" alt="photo" >
+      <img src="images\img_wald.jpg" data-id="1" class="zoom__img" alt="photo" >
+      <img src="images\img_wasser.jpg" data-id="2" class="zoom__img" alt="photo" >
+      <img src="images\img_rutsche.jpg" data-id="3" class="zoom__img" alt="photo" >
+      <div class="large__img" style="background: url('images/img_strand.jpg') no-repeat #ffffff;"></div>
+    </div>
+  </section>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
