@@ -1,4 +1,3 @@
-
 const dateSelectElement = document.getElementById('date__select');
 const zoomImages = document.querySelectorAll('.zoom__img');
 let magnifiedImage = document.querySelector(".large__img");
@@ -20,9 +19,9 @@ dateSelectElement.addEventListener('change', function() {
   });
 });
 
-
+// Обработчик события для мыши
 document.getElementById("zoom").addEventListener(
-  "touchstart",
+  "mousemove",
   function (e) {
     const magnifiedImageStyle = magnifiedImage.style;
     const mouseX = e.pageX - this.offsetLeft;
@@ -50,8 +49,49 @@ document.getElementById("zoom").addEventListener(
 );
 
 document.getElementById("zoom").addEventListener(
-  "touchmove",
+  "mouseout",
   function () {
+    const magnifiedImageStyle = magnifiedImage.style;
+    magnifiedImageStyle.opacity = 0;
+  },
+  false
+);
+
+// Обработчики событий для сенсорных устройств (мобильных устройств)
+document.getElementById("zoom").addEventListener(
+  "touchmove",
+  function (e) {
+    // Обработка события при касании экрана
+    const magnifiedImageStyle = magnifiedImage.style;
+    const touch = e.touches[0];
+    const mouseX = touch.clientX - this.offsetLeft;
+    const mouseY = touch.clientY - this.offsetTop;
+    let xPercent = (mouseX / originalImageWidth) * 100;
+    let yPercent = (mouseY / originalImageHeight) * 100;
+
+    if (mouseX > 0.01 * originalImageWidth) {
+      xPercent += 0.15 * xPercent;
+    }
+
+    if (mouseY >= 0.01 * originalImageHeight) {
+      yPercent += 0.15 * yPercent;
+    }
+
+    magnifiedImageStyle.backgroundPositionX = xPercent - 9 + "%";
+    magnifiedImageStyle.backgroundPositionY = yPercent - 9 + "%";
+    magnifiedImageStyle.left = mouseX - 69 + "px";
+    magnifiedImageStyle.top = mouseY - 69 + "px";
+
+    // Устанавливаем opacity в 1 при движении по сенсорному экрану
+    magnifiedImageStyle.opacity = 1;
+  },
+  false
+);
+
+document.getElementById("zoom").addEventListener(
+  "touchend",
+  function () {
+    // Обработка события при отрыве пальца от экрана
     const magnifiedImageStyle = magnifiedImage.style;
     magnifiedImageStyle.opacity = 0;
   },

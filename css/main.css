@@ -28,6 +28,7 @@
   width: 100%;
   margin: 0 auto;
   position: relative;
+  overscroll-behavior: contain;
 }
 .zoom__img{
   width: 100%;
