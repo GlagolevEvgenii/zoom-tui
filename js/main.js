@@ -22,7 +22,7 @@ dateSelectElement.addEventListener('change', function() {
 
 
 document.getElementById("zoom").addEventListener(
-  "mousemove",
+  "touchstart",
   function (e) {
     const magnifiedImageStyle = magnifiedImage.style;
     const mouseX = e.pageX - this.offsetLeft;
@@ -50,7 +50,7 @@ document.getElementById("zoom").addEventListener(
 );
 
 document.getElementById("zoom").addEventListener(
-  "mouseout",
+  "touchmove",
   function () {
     const magnifiedImageStyle = magnifiedImage.style;
     magnifiedImageStyle.opacity = 0;
