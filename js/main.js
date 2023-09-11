@@ -1,13 +1,23 @@
 const dateSelectElement = document.getElementById('date__select');
 const zoomImages = document.querySelectorAll('.zoom__img');
 let magnifiedImage = document.querySelector(".large__img");
-const originalImage = document.querySelector(".zoom__img");
-let originalImageWidth = originalImage.width;
-let originalImageHeight = originalImage.height;
+let originalImage;
+let originalImageWidth;
+let originalImageHeight;
 const zoomContainer = document.getElementById("zoom");
 const body = document.body;
 
 let scrollEnabled = true;
+
+function initializeImageDimensions() {
+  originalImage = document.querySelector(".zoom__img");
+  originalImageWidth = originalImage.width;
+  originalImageHeight = originalImage.height;
+}
+
+window.addEventListener('load', function() {
+  initializeImageDimensions();
+});
 
 function updateMagnifiedImage(mouseX, mouseY) {
   const magnifiedImageStyle = magnifiedImage.style;
