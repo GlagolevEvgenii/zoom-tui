@@ -2,7 +2,7 @@
   text-align: center;
   padding: 60px 0;
   background-color:#E2F3FE;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .text__container{
   text-align: center;
@@ -28,7 +28,6 @@
   width: 100%;
   margin: 0 auto;
   position: relative;
-  overflow: hidden;
 }
 .zoom__img{
   width: 100%;
